@@ -4,6 +4,9 @@ import Controler.ProductManager;
 import Model.Product;
 import Storage.Store;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Client {
@@ -11,9 +14,10 @@ public class Client {
     private final Store<Product> store;
     private final boolean UP = true;
     private final boolean DOWN = false;
-    public Client() {
+    public Client() throws IOException {
         this.store = new Store<>();
         this.productManager = new ProductManager(store);
+        productManager.read();
     }
 
     public void sortByPriceUp(){
@@ -66,7 +70,7 @@ public class Client {
         }
         return true;
     }
-    public void app(){
+    public void app() throws IOException {
         Scanner scanner = new Scanner(System.in);
         menu();
         System.out.println("Enter your choose : ");
@@ -94,6 +98,7 @@ public class Client {
                 String description1 = scanner.nextLine();
                 System.out.println("Product addition is successful");
                 creat(id1,name1,price1,status1,description1);
+                productManager.save();
                 app();
                 break;
             case 2:
@@ -174,6 +179,7 @@ public class Client {
                 break;
             case 0:
                 System.out.println("Good bye");
+                productManager.save();
                 break;
             default:
                 System.out.println("Please choose from 0 to 9");

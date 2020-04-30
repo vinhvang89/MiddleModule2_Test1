@@ -2,6 +2,8 @@ package Controler;
 import Model.Product;
 import Storage.Store;
 
+import java.io.*;
+
 public class ProductManager implements Function {
     private final Store<Product> store;
 
@@ -115,4 +117,37 @@ public class ProductManager implements Function {
             System.out.println(value.toString());
         }
     }
+    public void save() throws IOException {
+        try {
+            FileOutputStream f_o = new FileOutputStream("productList.txt");
+            for (Product product : store) {
+                byte[] bytes = product.toString().getBytes();
+                byte[] down = "\n".getBytes();
+                f_o.write(bytes);
+                f_o.write(down);
+            }
+            f_o.close();
+        } catch (IOException e){
+            System.out.println("Hello boy");
+        }
+
+    }
+    public void read() throws IOException {
+        String link = "E:\\Codegym\\Module 2\\Week9\\BaiKiemTraGiuaModule2\\productList.txt";
+        FileReader path = new FileReader(link);
+        BufferedReader br = new BufferedReader(path);
+        String line = "";
+        while ((line=br.readLine())!= null){
+            String[] content = line.split(" ,");
+            int id = Integer.parseInt(content[0].substring(5));
+            String name = content[1].substring(6);
+            double price = Double.parseDouble(content[2].substring(7));
+            boolean status = Boolean.getBoolean(content[3].substring(8));
+            String description = content[4].substring(13);
+            creat(id,name,price,status,description);
+        }
+        br.close();
+
+    }
+
 }

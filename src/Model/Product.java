@@ -60,7 +60,6 @@ public class Product implements ProductInformation {
         this.description = description;
     }
     public String toString(){
-        return "ID: "+id+" ,name: "+name+" ,price: "+price+" ,status: "+status+
-                ", description: "+description;
+        return " ID: "+id+" ,name: "+name+" ,price: "+price+" ,status: "+status+" ,description: "+description;
     }
 }
