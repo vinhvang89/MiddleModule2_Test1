@@ -147,7 +147,6 @@ public class ProductManager implements Function {
             creat(id,name,price,status,description);
         }
         br.close();
-
     }
 
 }

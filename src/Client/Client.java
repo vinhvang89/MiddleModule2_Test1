@@ -3,9 +3,6 @@ package Client;
 import Controler.ProductManager;
 import Model.Product;
 import Storage.Store;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -52,16 +49,22 @@ public class Client {
     }
     public void menu(){
         System.out.println("Menu");
-        System.out.println(" 1. Add a product            ");
-        System.out.print(" 2. Change name by ID        ");
-        System.out.println("3. Change price by ID       ");
-        System.out.print(" 4. Change status by ID      ");
-        System.out.println("5. Change description by ID ");
-        System.out.print(" 6. Find product by name     ");
-        System.out.println("7. Display all of products  ");
-        System.out.print(" 8. Sort by price up         ");
-        System.out.println("9. Sort by price down       ");
+        System.out.print(" 1. Add a product            ");
+        System.out.println("2. Edit product             ");
+        System.out.print(" 3. Find product by name     ");
+        System.out.println("4. Display all of products  ");
+        System.out.print(" 5. Sort by price up         ");
+        System.out.println("6. Sort by price down       ");
         System.out.println(" 0. Exit");
+    }
+    public void menuOfEdit(){
+        System.out.println("Option");
+        System.out.print(" 1. Edit product information   ");
+        System.out.println("2. Edit product's name        ");
+        System.out.print(" 3. Edit product's price       ");
+        System.out.println("4. Edit product's status      ");
+        System.out.print(" 5. Edit product's description ");
+        System.out.println("0. Back to main menu");
     }
     public boolean checkId(int id){
         for (Product product : store) {
@@ -105,75 +108,78 @@ public class Client {
                 System.out.println("Enter ID to edit");
                 int id2 = scanner.nextInt();
                 scanner.nextLine();
-                if(!checkId(id2)){
+                if(checkId(id2)){
                     System.out.println("ID is wrong");
                     app();
                     break;
                 }
-                System.out.println("Enter a new name");
-                String name2 = scanner.nextLine();
-                editNameById(id2,name2);
+                menuOfEdit();
+                System.out.println("Enter a choose");
+                int choose2 = scanner.nextInt();
+                scanner.nextLine();
+                switch (choose2){
+                    case 1:
+                        System.out.println("Enter new name");
+                        String name2 = scanner.nextLine();
+                        editNameById(id2,name2);
+                        System.out.println("Enter new price");
+                        double price2 = scanner.nextDouble();
+                        scanner.nextLine();
+                        editPriceById(id2,price2);
+                        System.out.println("Enter new status");
+                        boolean status2 = scanner.nextBoolean();
+                        scanner.nextLine();
+                        editStatusById(id2,status2);
+                        System.out.println("Enter new description");
+                        String description2 = scanner.nextLine();
+                        editDescriptionById(id2,description2);
+                        break;
+                    case 2:
+                        System.out.println("Enter new name");
+                        String name23 = scanner.nextLine();
+                        editNameById(id2,name23);
+                        break;
+                    case 3:
+                        System.out.println("Enter new price");
+                        double price3 = scanner.nextDouble();
+                        scanner.nextLine();
+                        editPriceById(id2,price3);
+                        break;
+                    case 4:
+                        System.out.println("Enter new status");
+                        boolean status4 = scanner.nextBoolean();
+                        scanner.nextLine();
+                        editStatusById(id2,status4);
+                        break;
+                    case 5:
+                        System.out.println("Enter new description");
+                        String description5 = scanner.nextLine();
+                        editDescriptionById(id2,description5);
+                        break;
+                    case 0:
+                        app();
+                        break;
+                    default:
+                        System.out.println("Please choose from 0 to 5");
+
+                }
                 app();
                 break;
             case 3:
-                System.out.println("Enter ID to edit");
-                int id3 = scanner.nextInt();
-                scanner.nextLine();
-                if(!checkId(id3)){
-                    System.out.println("ID is wrong");
-                    app();
-                    break;
-                }
-                System.out.println("Enter a new price");
-                double price3 = scanner.nextDouble();
-                scanner.nextLine();
-                editPriceById(id3,price3);
+                System.out.println("Enter a name of product");
+                String name3 = scanner.nextLine();
+                searchByName(name3);
                 app();
                 break;
             case 4:
-                System.out.println("Enter ID to edit");
-                int id4 = scanner.nextInt();
-                scanner.nextLine();
-                if(!checkId(id4)){
-                    System.out.println("ID is wrong");
-                    app();
-                    break;
-                }
-                System.out.println("Enter a new status");
-                boolean status4 = scanner.nextBoolean();
-                scanner.nextLine();
-                editStatusById(id4,status4);
-                app();
-                break;
-            case 5:
-                System.out.println("Enter ID to edit");
-                int id5 = scanner.nextInt();
-                scanner.nextLine();
-                if(!checkId(id5)){
-                    System.out.println("ID is wrong");
-                    app();
-                    break;
-                }
-                System.out.println("Enter a new description");
-                String description5 = scanner.nextLine();
-                editDescriptionById(id5,description5);
-                app();
-                break;
-            case 6:
-                System.out.println("Enter a name of product");
-                String name6 = scanner.nextLine();
-                searchByName(name6);
-                app();
-                break;
-            case 7:
                 display();
                 app();
                 break;
-            case 8:
+            case 5:
                 sortByPriceUp();
                 app();
                 break;
-            case 9:
+            case 6:
                 sortByPriceDown();
                 app();
                 break;
